@@ -1,6 +1,10 @@
 xxxxxxxxxxxxxx
-xxx----------x
+xxx--------o-x
+x-o----------x
+x----o----o--x
 x------------x
 x------------x
-x---xxxx-----x
+x-o-xxxx-----x
+x------------x
+x-------o----x
 xxxxxxxxxxxxxx

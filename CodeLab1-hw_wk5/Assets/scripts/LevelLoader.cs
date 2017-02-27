@@ -12,8 +12,13 @@ public class LevelLoader : MonoBehaviour {
 	public string[] fileNames;
 	public static int levelNum = 0;
 
+	//public GameObject orange;
+
 	// Use this for initialization
 	void Start () {
+	//	LevelLoader.levelNum;
+	//	LevelLoader level = new LevelLoader ();
+	//	level.offsetX;
 		string fileName = fileNames[levelNum];
 
 		string filePath = Application.dataPath + "/" + fileName;
@@ -23,13 +28,24 @@ public class LevelLoader : MonoBehaviour {
 		GameObject levelHolder = new GameObject("Level Holder");
 
 		int yPos = 0;
-
 		GameObject player = Instantiate(Resources.Load("Prefabs/Player") as GameObject);
 
 		while(!sr.EndOfStream){
 			string line = sr.ReadLine();
 
 			for(int xPos = 0; xPos < line.Length; xPos++){
+				if (line [xPos] == 'o') {
+					//GameObject sphere = GameObject.CreatePrimitive (PrimitiveType.Sphere);
+					GameObject _orange = Instantiate (Resources.Load ("Prefabs/clementine")as GameObject);
+					//GameObject _orange = Instantiate (orange) as GameObject;
+
+					_orange.transform.parent = levelHolder.transform;
+				
+					_orange.transform.position = new Vector3 (
+						xPos + offsetX,
+						yPos + offsetY,
+						0);
+				}
 
 				if(line[xPos] == 'x'){
 					GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -38,7 +54,7 @@ public class LevelLoader : MonoBehaviour {
 
 					cube.transform.position = new Vector3(
 						xPos + offsetX, 
-						yPos + offsetY, 
+						yPos + offsetY, 	
 						0);
 				}
 			}
