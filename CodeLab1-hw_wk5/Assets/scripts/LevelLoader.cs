@@ -8,6 +8,7 @@ public class LevelLoader : MonoBehaviour {
 
 	public float offsetX = 0;
 	public float offsetY = 0;
+	public int OrangeCount = 0;
 
 	public string[] fileNames;
 	public static int levelNum = 0;
@@ -15,11 +16,12 @@ public class LevelLoader : MonoBehaviour {
 	//public GameObject orange;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 	//	LevelLoader.levelNum;
 	//	LevelLoader level = new LevelLoader ();
 	//	level.offsetX;
 		string fileName = fileNames[levelNum];
+		OrangeCount = 0;
 
 		string filePath = Application.dataPath + "/" + fileName;
 
@@ -29,7 +31,7 @@ public class LevelLoader : MonoBehaviour {
 
 		int yPos = 0;
 		GameObject player = Instantiate(Resources.Load("Prefabs/Player") as GameObject);
-
+		Debug.Log ("START CALLED");
 		while(!sr.EndOfStream){
 			string line = sr.ReadLine();
 
@@ -37,6 +39,7 @@ public class LevelLoader : MonoBehaviour {
 				if (line [xPos] == 'o') {
 					//GameObject sphere = GameObject.CreatePrimitive (PrimitiveType.Sphere);
 					GameObject _orange = Instantiate (Resources.Load ("Prefabs/clementine")as GameObject);
+					OrangeCount++;
 					//GameObject _orange = Instantiate (orange) as GameObject;
 
 					_orange.transform.parent = levelHolder.transform;
@@ -67,8 +70,10 @@ public class LevelLoader : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown(KeyCode.P)){
-			levelNum++;
+		if (OrangeCount == 0)
+		{
+			if(levelNum < fileNames.Length)
+				levelNum++;
 			SceneManager.LoadScene("Week5");
 		}
 	}
